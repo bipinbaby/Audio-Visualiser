@@ -5,18 +5,60 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>threejs-journey</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Saira:wght@100;200;300&display=swap" rel="stylesheet">
     <style>
     body { margin: 0; background: #000; }
+    #overlay::before {
+      content: '';
+      position: fixed;
+      inset: 8px;                            /* mobile */
+      border: 2px solid rgba(255,255,255,0.8);
+      border-radius: 4px;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    @media (min-width: 768px) {              /* tablet */
+      #overlay::before { inset: 16px; }
+      #overlay .title { font-size: 5rem; }
+      #overlay .subtitle { font-size: 1.5rem; }
+    }
+    @media (min-width: 1440px) {             /* desktop */
+      #overlay::before { inset: 28px; }
+      #overlay .title { font-size: 7rem; }
+      #overlay .subtitle { font-size: 2rem; }
+    }
+    #overlay p, #overlay button { font-family: 'Saira', sans-serif; font-weight: 200; }
+    #overlay button {
+      width: 16rem;
+      padding: 0.8rem 2.5rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #fff;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 8px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    #overlay button:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.8);
+    }
   </style>
   </head>
   <body>
       
     
-     <div id="overlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000;color:#fff;
-     display:flex;align-items:center;justify-content:center;
-     font-size:2rem;cursor:pointer;z-index:10;">Click to start</div>
-    <!<input type="range" min="0" max="3" step="0.1" value="1.5" id="bloom"
-            style = "position: fixed; top:20px; left: 20px; z-index: 10;">>
-    <script type="module" src="/src/day26.js"></script>
+     <div id="overlay" style="position:fixed;top:0;left:0;width:100%;height:100%;color:#fff;
+     background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/bg.png') center/cover no-repeat;
+     display:flex;flex-direction:column;gap:1.5rem;align-items:center;justify-content:center;z-index:10;">
+       <p class="title"    style="margin:0; font-size:clamp(3.5rem, 6vw, 7rem); white-space:nowrap;">AUDIO VISUALISER</p>
+       <p class="subtitle" style="margin:0; font-size:1.5rem;">Choose audio source</p>
+       <button id="btn-mic">Microphone</button>
+       <button id="btn-system">System Audio</button>
+     </div>
+
+    <script type="module" src="/src/visualiser.js"></script>
   </body>
 </html>
